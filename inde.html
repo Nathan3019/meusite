@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Você Vitória</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffdce0, #ffeef0);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #fff;
+      border: 2px solid #e22;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.5s ease;
+    }
+
+    .envelope:hover {
+      transform: scale(1.05);
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #e22;
+      border-bottom: 2px solid #c00;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      transition: all 0.6s ease;
+      z-index: 2;
+      opacity: 1;
+    }
+
+    .message {
+      opacity: 0;
+      transform: translateY(20px);
+      text-align: center;
+      padding: 30px;
+      font-size: 18px;
+      color: #333;
+      transition: 0.5s ease;
+    }
+
+    .open .flap {
+      opacity: 0;
+      transform: rotateX(180deg);
+      pointer-events: none;
+    }
+
+    .open .message {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .heart-icon {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      color: #e22;
+    }
+
+    .responder-btn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #e22;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .responder-btn:hover {
+      background-color: #c00;
+    }
+
+    .open .responder-btn {
+      display: inline-block;
+    }
+
+    @media (max-width: 480px) {
+      .envelope {
+        width: 90%;
+        height: auto;
+      }
+
+      .message {
+        font-size: 16px;
+        padding: 20px;
+      }
+
+      .responder-btn {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CORAÇÕES -->
+  <div class="hearts">
+    <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="heart" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="heart" style="left: 70%; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 90%; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- ENVELOPE -->
+  <div class="container">
+    <div class="envelope" onclick="abrirEnvelope(this)">
+      <div class="flap"></div>
+      <div class="message">
+        <p>
+          Eu adoro seu jeito, sua risada, seu jeitinho único de ver o mundo.<br><br>
+          Você é linda demais, por dentro e por fora.<br><br>
+          E a verdade é… eu gosto de você exatamente do jeitinho que você é💖. 
+          <br>
+          Vc aceita a namorar comigo?
+        </p>
+        <button class="responder-btn" onclick="responder(event)">Sim, aceito! 💘</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- SOM ROMÂNTICO -->
+  <audio id="somEnvelope" src="som.mp3" preload="auto"></audio>
+
+  <script>
+    function abrirEnvelope(el) {
+      if (!el.classList.contains('open')) {
+        document.getElementById('somEnvelope').play();
+      }
+      el.classList.toggle('open');
+    }
+
+   function responder(event) {
+  event.stopPropagation();
+
+  window.open('https://www.instagram.com/direct/t/17842540329298811/', '_blank');
+
+  // Você pode trocar por alert ou mudar a mensagem da página, se quiser.
+}
+
+  </script>
+
+</body>
+</html>
